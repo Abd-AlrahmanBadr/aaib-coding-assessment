@@ -30,7 +30,7 @@ router.get(
 	'/',
 	input(Joi.object({
 		offset: Joi.number().default(0),
-		limit: Joi.number().default(10)
+		limit: Joi.number().default(100)
 	})),
 	responseShaper(listAll)
 )
