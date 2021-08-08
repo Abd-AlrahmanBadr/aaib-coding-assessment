@@ -59,7 +59,7 @@ export default {
 					messages.forEach((message) => {
 						this.$toast.success(message)
 					})
-					this.setReportStatus(reportId, 'CLOSED')
+					this.closeReportState(reportId)
 				})
 				.catch((err) => {
 					const messages = err?.response?.data?.messages || []
@@ -76,7 +76,7 @@ export default {
 					messages.forEach((message) => {
 						this.$toast.success(message)
 					})
-					this.setReportStatus(reportId, 'RESOLVED')
+					this.closeReportState(reportId)
 				})
 				.catch((err) => {
 					const messages = err?.response?.data?.messages || []
@@ -85,10 +85,10 @@ export default {
 					})
 				})
 		},
-		setReportStatus (reportId, newStatus) {
+		closeReportState (reportId) {
 			for (let i = 0; i < this.reports.length; i++) {
 				if (this.reports[i].id === reportId) {
-					this.reports[i].state = newStatus
+					this.reports[i].state = 'CLOSED'
 					break
 				}
 			}
