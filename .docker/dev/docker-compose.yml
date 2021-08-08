@@ -1,0 +1,63 @@
+version: '3.9'
+
+services:
+  # Client Container
+  client:
+    container_name: AAIB.Client.dev
+    image: 'node:14.15-alpine'
+    working_dir: /opt/app
+    environment:
+      - VUE_APP_BASE_API_URL=${CLIENT_API_URL}
+      - VUE_APP_PORT=${CLIENT_PORT}
+    ports:
+      - '${CLIENT_PORT}:${CLIENT_PORT}'
+    volumes:
+      - ../../client:/opt/app
+    depends_on:
+      - api
+    command: npm run serve
+  # API Container
+  api:
+    container_name: AAIB.API.dev
+    image: 'node:14.15-alpine'
+    working_dir: /opt/app
+    environment:
+      - API_NODE_ENV=${API_NODE_ENV}
+      - API_SERVER_PORT=${API_SERVER_PORT}
+      - API_DB_URI=${API_DB_URI}
+    depends_on:
+      - mongodb
+    links:
+      - mongodb
+    ports:
+      - '${API_SERVER_PORT}:${API_SERVER_PORT}'
+    volumes:
+      - ../../api:/opt/app
+    command: npm run dev
+  # DB Container
+  mongodb:
+    container_name: AAIB.MongoDB.dev
+    image: 'mongo:4.4-bionic'
+    ports:
+      - '27017:27017'
+    volumes:
+      - ${DATA_PATH}/db:/data/db
+  # Nginx Container
+  nginx:
+    container_name: AAIB.Nginx.dev
+    image: 'nginx:1.19-alpine'
+    environment:
+      - API_CONTAINER=${API_CONTAINER}
+      - API_SERVER_PORT=${API_SERVER_PORT}
+      - CLIENT_CONTAINER=${CLIENT_CONTAINER}
+      - CLIENT_PORT=${CLIENT_PORT}
+    volumes:
+      - ./nginx.conf.template:/etc/nginx/templates/default.conf.template
+    depends_on:
+      - api
+      - client
+    links:
+      - api
+      - client
+    ports:
+      - '80:80'
