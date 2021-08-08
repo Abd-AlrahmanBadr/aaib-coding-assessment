@@ -1,0 +1,94 @@
+{
+	"info": {
+		"_postman_id": "44febd01-9ac6-4c4a-aea0-fe4aa9346b69",
+		"name": "AAIB",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Create Report",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"type\": \"SPAM\",\n    \"message\": \"Spam Message\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost/api/reports/new",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"api",
+						"reports",
+						"new"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "List Reports",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost/api/reports",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"api",
+						"reports"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Resolve Report",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "localhost/api/reports/610fd6ea9fa6be015121c807",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"api",
+						"reports",
+						"610fd6ea9fa6be015121c807"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Block Report",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "localhost/api/reports/610fd6ec9fa6be015121c810",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"api",
+						"reports",
+						"610fd6ec9fa6be015121c810"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
