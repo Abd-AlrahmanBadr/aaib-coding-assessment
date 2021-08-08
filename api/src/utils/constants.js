@@ -19,9 +19,11 @@ export const ReportTypeTypes = [
 // Report Statuses
 export const ReportStatusOpen = 'OPEN'
 export const ReportStatusResolved = 'RESOLVED'
+export const ReportStatusBlocked = 'BLOCKED'
 export const ReportStatusClosed = 'CLOSED'
 export const ReportStatusTypes = [
 	ReportStatusOpen,
 	ReportStatusResolved,
+	ReportStatusBlocked,
 	ReportStatusClosed
 ]

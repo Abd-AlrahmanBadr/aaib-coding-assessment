@@ -3,6 +3,7 @@ import mongoose from 'mongoose'
 import uniqueValidator from 'mongoose-unique-validator'
 
 import {
+	ReportStatusClosed,
 	ReportStatusOpen,
 	ReportStatusTypes,
 	ReportTypeTypes
@@ -38,6 +39,10 @@ const reportSchema = new mongoose.Schema({
 
 			delete ret._id
 			delete ret.__v
+
+			if (ret.state !== ReportStatusOpen) {
+				ret.state = ReportStatusClosed
+			}
 
 			return ret
 		}
