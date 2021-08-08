@@ -1,0 +1,23 @@
+server {
+	listen 80;
+  listen [::]:80;
+	server_name _;
+
+	# Proxy Config
+	proxy_set_header Host $host;
+	proxy_set_header X-Real-IP $remote_addr;
+	proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+	proxy_set_header X-Forwarded-Proto $scheme;
+	proxy_buffering off;
+	proxy_request_buffering off;
+	proxy_http_version 1.1;
+	proxy_intercept_errors on;
+
+	# Routing Config
+	location /api {
+		proxy_pass http://${API_CONTAINER}:${API_SERVER_PORT}/api;
+	}
+	location / {
+		proxy_pass http://${CLIENT_CONTAINER}:${CLIENT_PORT};
+	}
+}
